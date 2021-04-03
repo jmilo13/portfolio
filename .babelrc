@@ -1,0 +1,10 @@
+//se agregan los plugins adicionales 
+//que requerirá babel 
+{
+    "presets": [
+        "@babel/preset-env"
+    ],
+    "plugins":[
+        "@babel/plugin-transform-runtime"
+    ]
+}

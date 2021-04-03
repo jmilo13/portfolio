@@ -5,13 +5,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../src/styles/main.css">
+  <!-- 
+    Se elimina también el llamado a Css puesto que webpack
+    lo hará automáticamente
+    <link rel="stylesheet" href="../src/styles/main.css"> -->
   <title>JS Portfolio</title>
 </head>
 
 <body>
   <div id="main"></div>
-  <script type="module" src="../src//index.js"></script>
+  <!-- Al implementar webpack se debe eliminar la llamada
+  al script que se hace normalmente porque webpack al 
+  procesar el html le incluye automáticamente el archivo
+  main (el resultado) -->
+  <!-- <script type="module" src="../src//index.js"></script> -->
 </body>
 
 </html>
