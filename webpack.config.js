@@ -5,6 +5,9 @@ const path = require('path')
 const HtmlWebpackplugin = require('html-webpack-plugin')
 // se incluye el plugin de css
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+//se agrega el plugin de copiado de archivos
+const CopyPlugin = require('copy-webpack-plugin')
+const { loader } = require('mini-css-extract-plugin')
 
 
 //la configuración se realiza creando un objeto
@@ -20,6 +23,8 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         //se le asigna nombre al resultante unificado
         filename: 'main.js',
+        //se agrega una carpeta de destino para las imágenes
+        assetModuleFilename: 'assets/images/[hash][ext][query]'
     },
     resolve: {
         //se pasa por arreglo las extensiones utilizadas, pueden
@@ -47,6 +52,36 @@ module.exports = {
             test: /\.css$/i,
             use: [MiniCssExtractPlugin.loader,
             'css-loader']
+        },
+        //se incluye la regla para hacer loader de imágenes
+        {
+            test: /\.png$/,
+            type: 'asset/resource'
+        },
+        // se incluye la configuración de url loader
+        {
+            test:/\.(woff|woff2)$/,
+            use: {
+                loader: 'url-loader',
+                options: {
+                    limit: 10000, // O LE PASAMOS UN BOOLEANOS TRUE O FALSE
+                    // Habilita o deshabilita la transformación de archivos en base64.
+                    mimetype: 'aplication/font-woff',
+                    // Especifica el tipo MIME con el que se alineará el archivo. 
+                    // Los MIME Types (Multipurpose Internet Mail Extensions)
+                    // son la manera standard de mandar contenido a través de la red.
+                    name: "[name].[ext]",
+                    // EL NOMBRE INICIAL DEL ARCHIVO + SU EXTENSIÓN
+                    // PUEDES AGREGARLE [name]hola.[ext] y el output del archivo seria 
+                    // ubuntu-regularhola.woff
+                    outputPath: './assets/fonts/', 
+                    // EL DIRECTORIO DE SALIDA (SIN COMPLICACIONES)
+                    publicPath: './assets/fonts/',
+                    // EL DIRECTORIO PUBLICO (SIN COMPLICACIONES)
+                    esModule: false 
+                    // AVISAR EXPLICITAMENTE SI ES UN MODULO
+                },
+            }
         }
         ]
     },
@@ -63,7 +98,15 @@ module.exports = {
             //se deja el mismo nombre por convención
             filename: './index.html'
         }),
-        //se incluye el plugin
-        new MiniCssExtractPlugin()
+        //se incluye el plugin del css
+        new MiniCssExtractPlugin(),
+        // new CopyPlugin({
+        //     patterns: [
+        //         {
+        //             from: path.resolve(__dirname, "src", "assets/images"),
+        //             to: "assets/images"
+        //         }
+        //     ]
+        // })
     ]
 }
