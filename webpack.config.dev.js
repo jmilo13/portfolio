@@ -8,10 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 //se agrega el plugin de copiado de archivos
 const CopyPlugin = require('copy-webpack-plugin')
 const { loader } = require('mini-css-extract-plugin')
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
-const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 
 
 //la configuración se realiza creando un objeto
@@ -30,7 +27,8 @@ module.exports = {
         //se agrega una carpeta de destino para las imágenes
         assetModuleFilename: 'assets/images/[hash][ext][query]'
     },
-    mode: 'production',
+    mode: 'development',
+    watch: true,
     resolve: {
         //se pasa por arreglo las extensiones utilizadas, pueden
         //ser otras dependiendo las tecnologías usadas
@@ -122,17 +120,6 @@ module.exports = {
         //         }
         //     ]
         // })
-        new Dotenv(),
-        new CleanWebpackPlugin()
+        new Dotenv()
     ],
-    //permite la optimización del JS y otos archivos, en este caso CSS
-    optimization: {
-        //en webpack 5 teser ya esta incluido y se activa con esta linea
-        minimize: true,
-        //esta permite incluir otros plugins para la optimización como es el caso del css
-        minimizer: [
-            new CssMinimizerPlugin(),
-            new TerserPlugin(),
-        ]
-    }
 }
