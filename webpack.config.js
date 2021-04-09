@@ -108,7 +108,7 @@ module.exports = {
             template: './public/index.html',
             //se indica el nombre del resultado (que ira a la carpeta dist),
             //se deja el mismo nombre por convención
-            filename: './index.[contenthash].html'
+            filename: './index.html'
         }),
         //se incluye el plugin del css
         new MiniCssExtractPlugin({
